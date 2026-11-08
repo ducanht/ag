@@ -2,88 +2,143 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-  <meta http-equiv="Pragma" content="no-cache" />
-  <meta http-equiv="Expires" content="0" />
-  <title>Antigravity Link — Chuyển Hướng Nhanh</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="theme-color" content="#022753" />
+  <title>Antigravity Mobile</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #0f172a;
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: linear-gradient(135deg, #022753 0%, #004AA1 100%);
+    }
+    #topBar {
+      height: 44px;
+      background: #022753;
       color: #fff;
-      min-height: 100vh;
       display: flex;
       align-items: center;
-      justify-content: center;
-      padding: 20px;
-      text-align: center;
+      justify-content: space-between;
+      padding: 0 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      z-index: 1000;
+      position: relative;
     }
-    .card {
-      background: rgba(15, 23, 42, 0.9);
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      border-radius: 20px;
-      padding: 32px 24px;
-      max-width: 400px;
-      width: 100%;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
-    }
-    .spinner {
-      width: 44px;
-      height: 44px;
-      border: 4px solid rgba(255, 255, 255, 0.2);
-      border-top-color: #38bdf8;
-      border-radius: 50%;
-      animation: spin 0.7s linear infinite;
-      margin: 0 auto 18px;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    h1 { font-size: 19px; font-weight: 700; margin-bottom: 8px; }
-    p { font-size: 14px; color: #cbd5e1; line-height: 1.5; margin-bottom: 14px; }
-    .btn {
-      display: inline-block;
-      background: #22c55e;
-      color: #fff;
-      text-decoration: none;
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
       font-weight: 700;
-      font-size: 15px;
-      padding: 12px 22px;
-      border-radius: 12px;
-      margin-top: 6px;
-      box-shadow: 0 6px 20px rgba(34, 197, 94, 0.35);
+      letter-spacing: 0.3px;
+    }
+    .dot {
+      width: 8px;
+      height: 8px;
+      background: #22c55e;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #22c55e;
+    }
+    .actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-bar {
+      background: rgba(255, 255, 255, 0.15);
+      color: #fff;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .btn-bar:active {
+      background: rgba(255, 255, 255, 0.3);
+    }
+    #frameWrap {
+      position: absolute;
+      top: 44px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      height: calc(100% - 44px);
+      background: #141218;
+    }
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+    #loadingNotice {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #94a3b8;
+      font-size: 14px;
+      text-align: center;
+      pointer-events: none;
     }
   </style>
 </head>
 <body>
-  <div class="card">
-    <div class="spinner"></div>
-    <h1>Đang mở Antigravity...</h1>
-    <p id="desc">Đang kết nối trực tiếp vào máy tính của Chủ tịch Trịnh Đức Anh.</p>
-    <div id="action">
-      <a class="btn" id="directBtn" href="https://42d080de8aa918.lhr.life/?token=27s0pl91649mz57vrxuphs">Bấm vào đây để vào ngay</a>
+  <header id="topBar">
+    <div class="brand">
+      <div class="dot" id="liveDot"></div>
+      <span>Antigravity Link</span>
     </div>
-  </div>
+    <div class="actions">
+      <button class="btn-bar" id="refreshBtn" onclick="refreshTunnel()">🔄 Nối Lại</button>
+      <a class="btn-bar" id="directLink" href="https://14ca85aec0335f.lhr.life/?token=27s0pl91649mz57vrxuphs" target="_blank">↗ Mở Rời</a>
+    </div>
+  </header>
+  <main id="frameWrap">
+    <div id="loadingNotice">Đang nạp phiên làm việc Antigravity...</div>
+    <iframe id="mainFrame" src="https://14ca85aec0335f.lhr.life/?token=27s0pl91649mz57vrxuphs" allow="camera; microphone; clipboard-read; clipboard-write;" onload="onFrameLoaded()"></iframe>
+  </main>
   <script>
-    const FALLBACK_URL = "https://42d080de8aa918.lhr.life/?token=27s0pl91649mz57vrxuphs";
-    let redirected = false;
-    function go(targetUrl) {
-      if (redirected || !targetUrl) return;
-      redirected = true;
-      document.getElementById('directBtn').href = targetUrl;
-      window.location.replace(targetUrl);
+    let currentUrl = "https://14ca85aec0335f.lhr.life/?token=27s0pl91649mz57vrxuphs";
+    function onFrameLoaded() {
+      const notice = document.getElementById('loadingNotice');
+      if (notice) notice.style.display = 'none';
+      document.getElementById('liveDot').style.background = '#22c55e';
     }
-    const timer = setTimeout(() => go(FALLBACK_URL), 600);
-    fetch('https://raw.githubusercontent.com/ducanht/ag/main/url.json?t=' + Date.now(), { cache: 'no-store' })
-      .then(r => r.json())
-      .then(d => {
-        clearTimeout(timer);
-        go((d && d.url) ? d.url : FALLBACK_URL);
-      })
-      .catch(() => {
-        clearTimeout(timer);
-        go(FALLBACK_URL);
-      });
+    async function refreshTunnel() {
+      document.getElementById('liveDot').style.background = '#eab308';
+      try {
+        const res = await fetch('https://raw.githubusercontent.com/ducanht/ag/main/url.json?t=' + Date.now(), { cache: 'no-store' });
+        const d = await res.json();
+        if (d && d.url) {
+          currentUrl = d.url;
+          document.getElementById('mainFrame').src = d.url;
+          document.getElementById('directLink').href = d.url;
+        }
+      } catch (e) {
+        document.getElementById('mainFrame').src = currentUrl + (currentUrl.includes('?') ? '&' : '?') + 'r=' + Date.now();
+      }
+    }
+    // Tự động kiểm tra URL mới mỗi 20 giây ở background
+    setInterval(async () => {
+      try {
+        const res = await fetch('https://raw.githubusercontent.com/ducanht/ag/main/url.json?t=' + Date.now(), { cache: 'no-store' });
+        const d = await res.json();
+        if (d && d.url && d.url !== currentUrl) {
+          console.log('Tunnel updated:', d.url);
+          currentUrl = d.url;
+          document.getElementById('mainFrame').src = d.url;
+          document.getElementById('directLink').href = d.url;
+        }
+      } catch {}
+    }, 20000);
   </script>
 </body>
 </html>
