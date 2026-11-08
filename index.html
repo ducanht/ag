@@ -6,7 +6,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="theme-color" content="#022753" />
-  <title>Antigravity Mobile</title>
+  <title>Antigravity Remote Portal — Điện Thoại & Máy Tính</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html, body {
@@ -14,62 +14,70 @@
       height: 100%;
       overflow: hidden;
       background: #0f172a;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     }
     #topBar {
-      height: 44px;
+      height: 46px;
       background: #022753;
       color: #fff;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 12px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 0 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
       z-index: 1000;
       position: relative;
     }
     .brand {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
       font-size: 14px;
       font-weight: 700;
       letter-spacing: 0.3px;
     }
     .dot {
-      width: 8px;
-      height: 8px;
+      width: 9px;
+      height: 9px;
       background: #22c55e;
       border-radius: 50%;
-      box-shadow: 0 0 8px #22c55e;
+      box-shadow: 0 0 10px #22c55e;
     }
     .actions {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
     }
     .btn-bar {
-      background: rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.16);
       color: #fff;
-      border: none;
-      padding: 6px 12px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 6px 14px;
       border-radius: 8px;
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 600;
       cursor: pointer;
       text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
     }
-    .btn-bar:active {
-      background: rgba(255, 255, 255, 0.3);
+    .btn-bar:hover {
+      background: rgba(255, 255, 255, 0.28);
+    }
+    .btn-direct {
+      background: #004AA1;
+      border-color: #38bdf8;
     }
     #frameWrap {
       position: absolute;
-      top: 44px;
+      top: 46px;
       left: 0;
       right: 0;
       bottom: 0;
       width: 100%;
-      height: calc(100% - 44px);
+      height: calc(100% - 46px);
       background: #141218;
     }
     iframe {
@@ -84,7 +92,7 @@
       left: 50%;
       transform: translate(-50%, -50%);
       color: #94a3b8;
-      font-size: 14px;
+      font-size: 15px;
       text-align: center;
       pointer-events: none;
     }
@@ -94,16 +102,16 @@
   <header id="topBar">
     <div class="brand">
       <div class="dot" id="liveDot"></div>
-      <span>Antigravity Link</span>
+      <span>Antigravity Portal (PC & Điện Thoại)</span>
     </div>
     <div class="actions">
       <button class="btn-bar" id="refreshBtn" onclick="refreshTunnel()">🔄 Nối Lại</button>
-      <a class="btn-bar" id="directLink" href="https://wjdek-2001-ee0-4759-7b0-cccb-8177-47c2-5120.free.pinggy.net/?token=27s0pl91649mz57vrxuphs" target="_blank">↗ Mở Rời</a>
+      <a class="btn-bar btn-direct" id="directLink" href="https://wjdek-2001-ee0-4759-7b0-cccb-8177-47c2-5120.free.pinggy.net/?token=27s0pl91649mz57vrxuphs" target="_blank">↗ Mở Toàn Màn Hình</a>
     </div>
   </header>
   <main id="frameWrap">
     <div id="loadingNotice">Đang nạp phiên làm việc Antigravity...</div>
-    <iframe id="mainFrame" src="https://wjdek-2001-ee0-4759-7b0-cccb-8177-47c2-5120.free.pinggy.net/?token=27s0pl91649mz57vrxuphs" allow="camera; microphone; clipboard-read; clipboard-write;" onload="onFrameLoaded()"></iframe>
+    <iframe id="mainFrame" src="https://wjdek-2001-ee0-4759-7b0-cccb-8177-47c2-5120.free.pinggy.net/?token=27s0pl91649mz57vrxuphs" allow="camera; microphone; clipboard-read; clipboard-write; display-capture;" onload="onFrameLoaded()"></iframe>
   </main>
   <script>
     let currentUrl = "https://wjdek-2001-ee0-4759-7b0-cccb-8177-47c2-5120.free.pinggy.net/?token=27s0pl91649mz57vrxuphs";
@@ -126,13 +134,11 @@
         document.getElementById('mainFrame').src = currentUrl + (currentUrl.includes('?') ? '&' : '?') + 'r=' + Date.now();
       }
     }
-    // Tự động kiểm tra URL mới mỗi 20 giây ở background
     setInterval(async () => {
       try {
         const res = await fetch('https://raw.githubusercontent.com/ducanht/ag/main/url.json?t=' + Date.now(), { cache: 'no-store' });
         const d = await res.json();
         if (d && d.url && d.url !== currentUrl) {
-          console.log('Tunnel updated:', d.url);
           currentUrl = d.url;
           document.getElementById('mainFrame').src = d.url;
           document.getElementById('directLink').href = d.url;
