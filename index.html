@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="Antigravity" />
-  <title>Antigravity Link — Đang Kết Nối...</title>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <title>Antigravity Link — Chuyển Hướng Nhanh</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -21,13 +21,13 @@
       text-align: center;
     }
     .card {
-      background: rgba(15, 23, 42, 0.85);
-      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.18);
       border-radius: 20px;
       padding: 32px 24px;
       max-width: 400px;
       width: 100%;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
     }
     .spinner {
       width: 44px;
@@ -35,7 +35,7 @@
       border: 4px solid rgba(255, 255, 255, 0.2);
       border-top-color: #38bdf8;
       border-radius: 50%;
-      animation: spin 0.8s linear infinite;
+      animation: spin 0.7s linear infinite;
       margin: 0 auto 18px;
     }
     @keyframes spin { to { transform: rotate(360deg); } }
@@ -43,47 +43,48 @@
     p { font-size: 14px; color: #cbd5e1; line-height: 1.5; margin-bottom: 14px; }
     .btn {
       display: inline-block;
-      background: #0284c7;
+      background: #22c55e;
       color: #fff;
       text-decoration: none;
-      font-weight: 600;
-      font-size: 14px;
-      padding: 10px 18px;
-      border-radius: 10px;
-      margin-top: 8px;
+      font-weight: 700;
+      font-size: 15px;
+      padding: 12px 22px;
+      border-radius: 12px;
+      margin-top: 6px;
+      box-shadow: 0 6px 20px rgba(34, 197, 94, 0.35);
     }
   </style>
 </head>
 <body>
   <div class="card">
-    <div class="spinner" id="sp"></div>
-    <h1 id="title">Đang kết nối Antigravity...</h1>
-    <p id="desc">Đang tự động chuyển hướng tới phiên làm việc mới nhất trên máy tính.</p>
-    <div id="action"></div>
+    <div class="spinner"></div>
+    <h1>Đang mở Antigravity...</h1>
+    <p id="desc">Đang kết nối trực tiếp vào máy tính của Chủ tịch Trịnh Đức Anh.</p>
+    <div id="action">
+      <a class="btn" id="directBtn" href="https://domains-powers-downtown-grammar.trycloudflare.com/?token=27s0pl91649mz57vrxuphs">Bấm vào đây để vào ngay</a>
+    </div>
   </div>
   <script>
-    const GIST_ID = 'c77dc688b7ac2602857f8a2947611334';
-    async function connect() {
-      try {
-        const res = await fetch('https://api.github.com/gists/' + GIST_ID + '?t=' + Date.now(), {
-          cache: 'no-store'
-        });
-        const gist = await res.json();
-        const raw = gist.files && gist.files['ag-tunnel.json'] && gist.files['ag-tunnel.json'].content;
-        if (raw) {
-          const data = JSON.parse(raw);
-          if (data.url && data.url.startsWith('https://')) {
-            document.getElementById('desc').textContent = 'Đã tìm thấy máy chủ! Đang mở giao diện...';
-            document.getElementById('action').innerHTML = '<a class="btn" href="' + data.url + '">Bấm vào đây nếu chưa tự chuyển</a>';
-            window.location.replace(data.url);
-            return;
-          }
-        }
-      } catch (e) {}
-      document.getElementById('desc').textContent = 'Đang chờ máy tính thức dậy hoặc kết nối mạng... Tự động thử lại sau 3 giây.';
-      setTimeout(connect, 3000);
+    const FALLBACK_URL = "https://domains-powers-downtown-grammar.trycloudflare.com/?token=27s0pl91649mz57vrxuphs";
+    let redirected = false;
+    function go(targetUrl) {
+      if (redirected || !targetUrl) return;
+      redirected = true;
+      document.getElementById('directBtn').href = targetUrl;
+      window.location.replace(targetUrl);
     }
-    connect();
+    // Tự động chuyển hướng sau tối đa 600ms kể cả khi mạng di động chặn fetch
+    const timer = setTimeout(() => go(FALLBACK_URL), 600);
+    fetch('https://raw.githubusercontent.com/ducanht/ag/main/url.json?t=' + Date.now(), { cache: 'no-store' })
+      .then(r => r.json())
+      .then(d => {
+        clearTimeout(timer);
+        go((d && d.url) ? d.url : FALLBACK_URL);
+      })
+      .catch(() => {
+        clearTimeout(timer);
+        go(FALLBACK_URL);
+      });
   </script>
 </body>
 </html>
