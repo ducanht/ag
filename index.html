@@ -61,11 +61,11 @@
     <h1>Đang mở Antigravity...</h1>
     <p id="desc">Đang kết nối trực tiếp vào máy tính của Chủ tịch Trịnh Đức Anh.</p>
     <div id="action">
-      <a class="btn" id="directBtn" href="https://domains-powers-downtown-grammar.trycloudflare.com/?token=27s0pl91649mz57vrxuphs">Bấm vào đây để vào ngay</a>
+      <a class="btn" id="directBtn" href="https://bin-pct-investing-erik.trycloudflare.com/?token=27s0pl91649mz57vrxuphs">Bấm vào đây để vào ngay</a>
     </div>
   </div>
   <script>
-    const FALLBACK_URL = "https://domains-powers-downtown-grammar.trycloudflare.com/?token=27s0pl91649mz57vrxuphs";
+    const FALLBACK_URL = "https://bin-pct-investing-erik.trycloudflare.com/?token=27s0pl91649mz57vrxuphs";
     let redirected = false;
     function go(targetUrl) {
       if (redirected || !targetUrl) return;
@@ -73,7 +73,6 @@
       document.getElementById('directBtn').href = targetUrl;
       window.location.replace(targetUrl);
     }
-    // Tự động chuyển hướng sau tối đa 600ms kể cả khi mạng di động chặn fetch
     const timer = setTimeout(() => go(FALLBACK_URL), 600);
     fetch('https://raw.githubusercontent.com/ducanht/ag/main/url.json?t=' + Date.now(), { cache: 'no-store' })
       .then(r => r.json())
