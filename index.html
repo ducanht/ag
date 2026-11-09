@@ -3,12 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-  <meta http-equiv="Pragma" content="no-cache" />
-  <meta http-equiv="Expires" content="0" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="theme-color" content="#022753" />
+  <meta http-equiv="refresh" content="0; url=https://glmof-183-80-60-2.free.pinggy.net/?token=27s0pl91649mz57vrxuphs" />
   <title>Antigravity Link</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -24,7 +22,7 @@
       text-align: center;
     }
     .card {
-      background: rgba(15, 23, 42, 0.95);
+      background: rgba(15, 23, 42, 0.9);
       border: 1px solid rgba(255, 255, 255, 0.2);
       border-radius: 20px;
       padding: 28px 20px;
@@ -33,7 +31,7 @@
       box-shadow: 0 20px 40px rgba(0,0,0,0.4);
     }
     .spinner {
-      width: 42px; height: 42px;
+      width: 40px; height: 40px;
       border: 3px solid rgba(255,255,255,0.2);
       border-top-color: #38bdf8;
       border-radius: 50%;
@@ -41,53 +39,30 @@
       margin: 0 auto 16px;
     }
     @keyframes spin { to { transform: rotate(360deg); } }
-    h2 { font-size: 19px; font-weight: 700; margin-bottom: 8px; }
+    h2 { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
     p { font-size: 13px; color: #cbd5e1; margin-bottom: 16px; }
     .btn {
       display: inline-block;
-      background: #16a34a;
+      background: #22c55e;
       color: #fff;
       text-decoration: none;
       font-weight: 700;
       font-size: 14px;
-      padding: 11px 22px;
-      border-radius: 12px;
-      box-shadow: 0 4px 14px rgba(22,163,74,0.4);
+      padding: 10px 20px;
+      border-radius: 10px;
     }
   </style>
+  <script>
+    const TARGET = "https://glmof-183-80-60-2.free.pinggy.net/?token=27s0pl91649mz57vrxuphs";
+    window.location.replace(TARGET);
+  </script>
 </head>
 <body>
   <div class="card">
     <div class="spinner"></div>
-    <h2>Đang mở Antigravity...</h2>
-    <p id="statusMsg">Đang tải địa chỉ kết nối thời gian thực...</p>
-    <a class="btn" id="directBtn" href="https://hkczq-2405-4802-46b1-57e0-b560-ff26-f18a-2bd2.free.pinggy.net/?token=27s0pl91649mz57vrxuphs">Bấm vào đây để vào ngay</a>
+    <h2>Đang mở Antigravity Link...</h2>
+    <p>Đang tự động chuyển hướng vào phiên làm việc.</p>
+    <a class="btn" href="https://glmof-183-80-60-2.free.pinggy.net/?token=27s0pl91649mz57vrxuphs">Bấm vào đây nếu chưa tự chuyển</a>
   </div>
-  <script>
-    const FALLBACK_URL = "https://hkczq-2405-4802-46b1-57e0-b560-ff26-f18a-2bd2.free.pinggy.net/?token=27s0pl91649mz57vrxuphs";
-    let redirected = false;
-    function go(targetUrl) {
-      if (redirected || !targetUrl) return;
-      redirected = true;
-      document.getElementById('directBtn').href = targetUrl;
-      document.getElementById('statusMsg').textContent = 'Đang kết nối vào máy tính...';
-      window.location.replace(targetUrl);
-    }
-    const timer = setTimeout(() => go(FALLBACK_URL), 500);
-    fetch('https://raw.githubusercontent.com/ducanht/ag/main/url.json?t=' + Date.now(), { cache: 'no-store' })
-      .then(r => r.json())
-      .then(d => {
-        clearTimeout(timer);
-        if (d && d.url) {
-          go(d.url);
-        } else {
-          go(FALLBACK_URL);
-        }
-      })
-      .catch(() => {
-        clearTimeout(timer);
-        go(FALLBACK_URL);
-      });
-  </script>
 </body>
 </html>
