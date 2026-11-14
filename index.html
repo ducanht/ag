@@ -61,10 +61,10 @@
     <div class="spinner"></div>
     <h2>Đang mở Antigravity...</h2>
     <p id="statusMsg">Đang tải địa chỉ kết nối thời gian thực...</p>
-    <a class="btn" id="directBtn" href="https://assistant-exclusive-mason-work.trycloudflare.com/?token=27s0pl91649mz57vrxuphs">Bấm vào đây để vào ngay</a>
+    <a class="btn" id="directBtn" href="https://dish-extra-ham-arms.trycloudflare.com/?token=27s0pl91649mz57vrxuphs">Bấm vào đây để vào ngay</a>
   </div>
   <script>
-    const FALLBACK_URL = "https://assistant-exclusive-mason-work.trycloudflare.com/?token=27s0pl91649mz57vrxuphs";
+    const FALLBACK_URL = "https://dish-extra-ham-arms.trycloudflare.com/?token=27s0pl91649mz57vrxuphs";
     let redirected = false;
     function go(targetUrl) {
       if (redirected || !targetUrl) return;
@@ -74,7 +74,7 @@
       window.location.replace(targetUrl);
     }
     const timer = setTimeout(() => go(FALLBACK_URL), 2500);
-    fetch('https://raw.githubusercontent.com/ducanht/ag/main/url.json?t=' + Date.now(), { cache: 'no-store' })
+    fetch('https://raw.githubusercontent.com/' + "ducanht/ag" + '/main/url.json?t=' + Date.now(), { cache: 'no-store' })
       .then(r => r.json())
       .then(d => {
         clearTimeout(timer);
